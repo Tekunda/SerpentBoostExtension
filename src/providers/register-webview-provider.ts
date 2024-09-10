@@ -86,33 +86,33 @@ export class SidebarWebViewProvider implements WebviewViewProvider {
   }
 
   private _getHtmlForWebview(webview: Webview) {
-    const manifestPath = path.join(
-      this._extensionUri.fsPath,
-      "serpent-extension-ui",
-      "dist",
-      ".vite",
-      "manifest.json"
-    );
-    const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
+    // const manifestPath = path.join(
+    //   this._extensionUri.fsPath,
+    //   "serpent-extension-ui",
+    //   "dist",
+    //   ".vite",
+    //   "manifest.json"
+    // );
+    // const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
 
-    const scriptUri = webview.asWebviewUri(
-      Uri.joinPath(
-        this._extensionUri,
-        "serpent-extension-ui",
-        "dist",
-        "assets",
-        manifest["index.html"].file.split("/").pop()
-      )
-    );
-    const cssUri = webview.asWebviewUri(
-      Uri.joinPath(
-        this._extensionUri,
-        "serpent-extension-ui",
-        "dist",
-        "assets",
-        manifest["index.html"].css.pop().split("/")[1]
-      )
-    );
+    // const scriptUri = webview.asWebviewUri(
+    //   Uri.joinPath(
+    //     this._extensionUri,
+    //     "serpent-extension-ui",
+    //     "dist",
+    //     "assets",
+    //     manifest["index.html"].file.split("/").pop()
+    //   )
+    // );
+    // const cssUri = webview.asWebviewUri(
+    //   Uri.joinPath(
+    //     this._extensionUri,
+    //     "serpent-extension-ui",
+    //     "dist",
+    //     "assets",
+    //     manifest["index.html"].css.pop().split("/")[1]
+    //   )
+    // );
 
     const scriptUriJs = webview.asWebviewUri(
       Uri.joinPath(this._extensionUri, "media", "js", "onboarding.js")

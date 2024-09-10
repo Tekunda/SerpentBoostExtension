@@ -1,8 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  console.log("DOMContentLoaded event fired");
-
   const vscode = acquireVsCodeApi();
-  console.log("vscode API acquired");
 
   let showBtn = false;
 
@@ -13,13 +10,17 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   const handleMessage = (event) => {
-    console.log("Message type", event?.data.type);
     const type = event?.data.type;
-    if (type === "DISABLE_BTN") {
-      showBtn = false;
-    }
-    if (type === "ENABLE_BTN") {
-      showBtn = true;
+    switch (type) {
+      case "DISABLE_BTN":
+        showBtn = false;
+        break;
+      case "ENABLE_BTN":
+        showBtn = true;
+        break;
+      default:
+        console.log("Unknown message type", type);
+        break;
     }
     updateUI();
   };
@@ -27,7 +28,6 @@ document.addEventListener("DOMContentLoaded", function () {
   window.addEventListener("message", handleMessage);
 
   const updateUI = () => {
-    console.log("Updating UI");
     const container = document.querySelector(".container");
     if (!container) {
       console.error("Container element not found");

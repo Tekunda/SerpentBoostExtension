@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { MessageType } from "../../src/types/message-type";
-import "./WelcomeComponent.css"; // Import the CSS file
+import "./WelcomeComponent.css";
 
 const vscode = window.acquireVsCodeApi();
 

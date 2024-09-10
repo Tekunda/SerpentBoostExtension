@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ExtensionContext } from "vscode";
+import { ExtensionContext, window } from "vscode";
 import { wrapper } from "axios-cookiejar-support";
 import { CookieJar } from "tough-cookie";
 import { getToken } from "./general-util";
@@ -20,6 +20,7 @@ export const fetchWorkSpaces = async (context: ExtensionContext) => {
     const data = workspaces.data.data;
     return data;
   } catch (error) {
+    console.error("Failed to fetch workspaces:", error);
     return [];
   }
 };
@@ -40,6 +41,7 @@ export const fetchProjects = async (
     const data = projects.data.data;
     return data;
   } catch (error) {
+    console.error("Failed to fetch projects:", error);
     return [];
   }
 };
@@ -64,6 +66,7 @@ export const fetchOrgs = async (
     const data = orgs.data.data;
     return data;
   } catch (error) {
+    console.error("Failed to fetch orgs:", error);
     return [];
   }
 };
@@ -81,7 +84,10 @@ export const login = async (context: ExtensionContext) => {
       }
     );
     return result.data;
-  } catch (error) {}
+  } catch (error) {
+    console.error("Failed to login:", error);
+    window.showErrorMessage("Failed to login");
+  }
 };
 
 export const createScratchOrg = async (
@@ -98,5 +104,8 @@ export const createScratchOrg = async (
       },
     });
     return result.data;
-  } catch (error) {}
+  } catch (error) {
+    console.error("Failed to create scratch org:", error);
+    window.showErrorMessage("Failed to create scratch org");
+  }
 };

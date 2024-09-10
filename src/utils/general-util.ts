@@ -32,7 +32,7 @@ export function openBrowser() {
     .get<string[]>("serpent.open.browser.sites");
   commands.executeCommand(
     "vscode.open",
-    Uri.parse(sites ? sites[0] : `https://serpent-test.tekunda.com`)
+    Uri.parse(sites ? sites[0] : `https://serpent.tekunda.com`)
   );
 }
 

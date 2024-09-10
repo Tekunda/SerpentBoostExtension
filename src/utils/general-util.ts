@@ -1,4 +1,5 @@
 import { commands, ExtensionContext, Uri, workspace } from "vscode";
+require("dotenv").config();
 
 export function getNonce() {
   let text = "";
@@ -10,11 +11,14 @@ export function getNonce() {
   return text;
 }
 
-export const openLoginRegisterPage = () =>
+export const openLoginRegisterPage = () => {
   commands.executeCommand(
     "vscode.open",
-    Uri.parse(`http://localhost:3000?callback=vscode://Tekunda.serpent-boost`)
+    Uri.parse(
+      `${process.env.NEXT_SERVER}?callback=vscode://Tekunda.serpent-boost`
+    )
   );
+};
 
 export async function getToken(
   context: ExtensionContext
@@ -23,12 +27,12 @@ export async function getToken(
 }
 
 export function openBrowser() {
-  const site = workspace
+  const sites = workspace
     .getConfiguration()
     .get<string[]>("serpent.open.browser.sites");
   commands.executeCommand(
     "vscode.open",
-    Uri.parse(site ? site[0] : `https://serpent-test.tekunda.com`)
+    Uri.parse(sites ? sites[0] : `https://serpent-test.tekunda.com`)
   );
 }
 

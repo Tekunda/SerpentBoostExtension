@@ -93,7 +93,7 @@ export class WorkspacesDataProvider implements TreeDataProvider<TreeNode> {
     );
 
     this.globalStore.workspaces = workspaces;
-    // i need to set the projects in the global store as an array of objects
+
     const projectsArray = projects.map(
       (project) => project[Object.keys(project)[0]]
     );

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { commands, ExtensionContext, Uri, workspace } from "vscode";
+import { ExtensionContext } from "vscode";
 import { wrapper } from "axios-cookiejar-support";
 import { CookieJar } from "tough-cookie";
 import { getToken } from "./general-util";

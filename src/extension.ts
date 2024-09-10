@@ -1,9 +1,8 @@
-import { commands, ExtensionContext, window } from "vscode";
+import { ExtensionContext } from "vscode";
 import { registerCallbackHandler } from "./handlers/callback-handler";
 import { registerCommands } from "./commands/commands";
 import { registerWelcomeMessageHandler } from "./handlers/welcome-message-handler";
 import { CustomEvent } from "./utils/custom-event";
-import { registerProjectProvider } from "./providers/project-data-provider";
 import { registerWebViewProvider } from "./providers/register-webview-provider";
 import { registerWorkspacesDataProvider } from "./providers/workspaces-data-provider";
 import { registerSse } from "./utils/sse";

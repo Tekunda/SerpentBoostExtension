@@ -1,8 +1,6 @@
 import EventSource = require("eventsource");
 import { ExtensionContext, window } from "vscode";
 import { getToken, isTokenExpired } from "./general-util";
-import { CustomEvent } from "./custom-event";
-import { MessageType } from "../types/message-type";
 import { jar, login } from "./api-client";
 require("dotenv").config();
 

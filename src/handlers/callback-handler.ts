@@ -1,4 +1,4 @@
-import { commands, ExtensionContext, Uri, window, workspace } from "vscode";
+import { ExtensionContext, window } from "vscode";
 import { CustomEvent } from "../utils/custom-event";
 import { MessageType } from "../types/message-type";
 
@@ -16,9 +16,6 @@ export function registerCallbackHandler(context: ExtensionContext) {
       );
       CustomEvent.customEvent.publish({ type: MessageType.DISABLE_BTN });
       CustomEvent.customEvent.publish({ type: MessageType.REFRESH_EVENT });
-      window.showInformationMessage(
-        `Token: ${queryParams.get("token") as string}`
-      );
     }
   };
 

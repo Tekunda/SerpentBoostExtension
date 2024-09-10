@@ -132,15 +132,6 @@
           "type": "string",
           "description": "Please enter welcome message",
           "default": "Welcome to the Serpent Boost extension!"
-        },
-        "serpent.open.browser.sites": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "default": [
-            "http://localhost:3000"
-          ]
         }
       }
     }
@@ -178,6 +169,7 @@
     "@magic-sdk/admin": "^2.4.1",
     "axios": "^1.7.7",
     "axios-cookiejar-support": "^5.0.2",
+    "dotenv": "^16.4.5",
     "eventsource": "^2.0.2",
     "ioredis": "^5.4.1",
     "magic-sdk": "^28.6.0",

@@ -45,67 +45,58 @@ export async function createScratchOrgHelper(context: ExtensionContext) {
     placeHolder: "Select a project",
   });
 
-  if (selectedProject) {
-    window.showInformationMessage(
-      `You selected: ${selectedProject.label} with ID: ${selectedProject.id}`
-    );
-
-    if (selectedProject.configNames.length > 0) {
-      const selectedConfig = await window.showQuickPick(
-        selectedProject.configNames,
-        {
-          placeHolder: "Select a configuration",
-        }
-      );
-
-      if (selectedConfig) {
-        window.showInformationMessage(`You selected: ${selectedConfig}`);
-      } else {
-        window.showInformationMessage("No configuration selected");
-      }
-
-      const alias = await window.showInputBox({
-        placeHolder: "Enter an alias",
-      });
-
-      if (alias) {
-        window.showInformationMessage(`You entered: ${alias}`);
-      } else {
-        window.showInformationMessage("No alias entered");
-      }
-
-      const body = {
-        configuration_name: selectedConfig,
-        project_id: selectedProject.id,
-        validity: 7,
-        scratch_org_alias: alias,
-      };
-
-      await window.withProgress(
-        {
-          location: ProgressLocation.Notification,
-          title: "Creating Scratch Org...",
-          cancellable: false,
-        },
-        async () => {
-          try {
-            await createScratchOrg(context, body, selectedProject.workspaceId);
-            window.showInformationMessage(
-              `Scratch Org created for project: ${selectedProject.label}`
-            );
-          } catch (error: any) {
-            window.showErrorMessage(
-              `Failed to create Scratch Org: ${error?.message}`
-            );
-          }
-        }
-      );
-    } else {
-      window.showInformationMessage(
-        "No configurations available for the selected project"
-      );
-    }
-  } else {
-    window.showInformationMessage("No project selected");
+  if (!selectedProject) {
+    window.showErrorMessage("No project selected");
+    return;
   }
+
+  if (selectedProject.configNames.length === 0) {
+    window.showErrorMessage(
+      "No configurations available for the selected project"
+    );
+    return;
+  }
+
+  const selectedConfig = await window.showQuickPick(
+    selectedProject.configNames,
+    {
+      placeHolder: "Select a configuration",
+    }
+  );
+
+  if (!selectedConfig) {
+    window.showErrorMessage("No configuration selected");
+    return;
+  }
+
+  const alias = await window.showInputBox({
+    placeHolder: "Enter an alias (optional)",
+  });
+
+  const body = {
+    configuration_name: selectedConfig,
+    project_id: selectedProject.id,
+    validity: 7,
+    scratch_org_alias: alias,
+  };
+
+  await window.withProgress(
+    {
+      location: ProgressLocation.Notification,
+      title: "Creating Scratch Org...",
+      cancellable: false,
+    },
+    async () => {
+      try {
+        await createScratchOrg(context, body, selectedProject.workspaceId);
+        window.showInformationMessage(
+          `Scratch Org created for project: ${selectedProject.label}`
+        );
+      } catch (error: any) {
+        window.showErrorMessage(
+          `Failed to create Scratch Org: ${error?.message}`
+        );
+      }
+    }
+  );
 }

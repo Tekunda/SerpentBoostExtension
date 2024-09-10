@@ -139,7 +139,7 @@ export class WorkspacesDataProvider implements TreeDataProvider<TreeNode> {
           undefined,
           undefined,
           "org"
-        // );
+        );
       });
       const projectsTitle = this.createTitleTreeNode(
         "Projects",

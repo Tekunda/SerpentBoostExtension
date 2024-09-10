@@ -11,9 +11,6 @@ import { MessageType } from "./types/message-type";
 import { registerActionsViewProvider } from "./providers/actions-view-provider";
 
 export async function activate(context: ExtensionContext) {
-  // const op = window.createOutputChannel("InfinitePOC");
-  await context.secrets.delete("serpent-token");
-  await context.secrets.delete("serpent-token-expires");
   // registerProjectProvider(context);
 
   registerCommands(context);

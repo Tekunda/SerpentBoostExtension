@@ -3,6 +3,7 @@ import { commands, ExtensionContext, Uri, workspace } from "vscode";
 import { wrapper } from "axios-cookiejar-support";
 import { CookieJar } from "tough-cookie";
 import { getToken } from "./general-util";
+require("dotenv").config();
 
 export const jar = new CookieJar();
 const client = wrapper(axios.create({ jar }));
@@ -10,7 +11,7 @@ const client = wrapper(axios.create({ jar }));
 export const fetchWorkSpaces = async (context: ExtensionContext) => {
   try {
     const token = await getToken(context);
-    const workspaces = await axios.get("http://127.0.0.1:5679/workspace", {
+    const workspaces = await axios.get(`${process.env.BACKEND}/workspace`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -29,7 +30,7 @@ export const fetchProjects = async (
 ) => {
   try {
     const token = await getToken(context);
-    const projects = await axios.get("http://127.0.0.1:5679/project", {
+    const projects = await axios.get(`${process.env.BACKEND}/project`, {
       headers: {
         workspace_id: workspaceId,
         "Content-Type": "application/json",
@@ -51,7 +52,7 @@ export const fetchOrgs = async (
   try {
     const token = await getToken(context);
     const orgs = await axios.get(
-      `http://127.0.0.1:5679/org?workspace_name=${workspaceName}`,
+      `${process.env.BACKEND}/org?workspace_name=${workspaceName}`,
       {
         headers: {
           workspace_id: workspaceId,
@@ -70,11 +71,15 @@ export const fetchOrgs = async (
 export const login = async (context: ExtensionContext) => {
   try {
     const token = await getToken(context);
-    const result = await client.post("http://localhost:3000/api/login", null, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const result = await client.post(
+      `${process.env.NEXT_SERVER}/api/login`,
+      null,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     return result.data;
   } catch (error) {}
 };
@@ -86,7 +91,7 @@ export const createScratchOrg = async (
 ) => {
   try {
     const token = await getToken(context);
-    const result = await axios.post("http://127.0.0.1:5679/scratchorg", body, {
+    const result = await axios.post(`${process.env.BACKEND}/scratchorg`, body, {
       headers: {
         Authorization: `Bearer ${token}`,
         workspace_id: workspaceId,

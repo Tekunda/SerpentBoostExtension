@@ -1,1 +1,1 @@
-# SerpentBoostExtension
+# Serpent Boost VS Code Extension
